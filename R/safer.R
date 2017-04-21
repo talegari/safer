@@ -10,21 +10,17 @@
 #'   string as a string and \code{decrypt_string} decrypts the encrypted
 #'   string(encrypted using \code{encrypt_string})
 #'
-#'   \strong{encrypt_object/decrypt object (or serialize2/unserialize2)}:
-#'   \code{encrypt_object}(or \code{serialize2}) encrypts a R object as a raw
-#'   object or a string and \code{decrypt_object}(or \code{unserialize2})
-#'   decrypts a raw object or a string(encrypted by \code{encrypt_object})
+#'   \strong{encrypt_object/decrypt object}: \code{encrypt_object} encrypts a R
+#'   object as a raw object or a string and \code{decrypt_object} decrypts a raw
+#'   object or a string(encrypted by \code{encrypt_object})
 #'
 #'   \strong{encrypt_file/decrypt_file}: \code{encrypt_file} encrypts file into
 #'   another binary or ascii file. \code{decrypt_file}) decrypts a file
 #'   (encrypted by \code{encrypt_file})
 #'
-#'   \strong{save_object/retrieve_object (or save2/load2)}:
-#'   \code{save_object}(or \code{save2}) encrypts a R object to raw or text
-#'   connection or a file. \code{retrieve_object}(or \code{load2}) decrypts a
-#'   raw or a text connection or a file (encrypted by \code{save_object} or
-#'   \code{save2}). Note that \code{load2} returns the object
-#'
+#'   \strong{save_object/retrieve_object}: \code{save_object} encrypts a R
+#'   object to raw or text connection or a file. \code{retrieve_object} decrypts
+#'   a raw or a text connection or a file (encrypted by \code{save_object}.)
 #'
 #' @import sodium
 #' @import base64enc

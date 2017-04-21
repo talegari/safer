@@ -1,10 +1,9 @@
 Package: safer
 Type: Package
-Title: Consistently Encrypt and Decrypt Strings, R Objects, Connections and Files
+Title: Encrypt and Decrypt Strings, R Objects and Files
 Version: 0.1.0
 Authors@R: person("KS", "Srikanth", email = "sri.teach@gmail.com", role = c("aut", "cre"))
-Description: A consistent interface to encrypt and decrypt strings, R objects,
-    connections and files. Alternatives functions for 'serialize', 'unserialize', 'save', 'load' are provided.
+Description: A consistent interface to encrypt and decrypt strings, R objects and files using symmetric key encryption.
 Imports:
     sodium (>= 0.4),
     base64enc (>= 0.1.3),
