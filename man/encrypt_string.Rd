@@ -22,3 +22,11 @@ An encrypted string
   \code{decrypt_string} decrypts the encrypted string(encrypted using
   \code{encrypt_string})
 }
+\examples{
+temp <- encrypt_string("hello, how are you", key = "secret")
+all(
+  is.character(temp)
+  , decrypt_string(temp, "secret") == "hello, how are you"
+  , class(try(decrypt_string(temp, "nopass"), silent = TRUE)) == "try-error")
+
+}

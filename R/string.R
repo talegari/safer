@@ -10,6 +10,14 @@
 #' @param method Currently, a stub. It should be 'symmetric'(default)
 #'
 #' @return An encrypted string
+#'
+#' @examples
+#' temp <- encrypt_string("hello, how are you", key = "secret")
+#' all(
+#'   is.character(temp)
+#'   , decrypt_string(temp, "secret") == "hello, how are you"
+#'   , class(try(decrypt_string(temp, "nopass"), silent = TRUE)) == "try-error")
+#'
 #' @export
 
 encrypt_string <- function(string
@@ -52,6 +60,14 @@ encrypt_string <- function(string
 #' @param method Currently, a stub. It should be 'symmetric'(default)
 #'
 #' @return A decrypted string
+#'
+#' @examples
+#' temp <- encrypt_string("hello, how are you", key = "secret")
+#' all(
+#'   is.character(temp)
+#'   , decrypt_string(temp, "secret") == "hello, how are you"
+#'   , class(try(decrypt_string(temp, "nopass"), silent = TRUE)) == "try-error")
+#'
 #' @export
 
 decrypt_string <- function(encryptedString

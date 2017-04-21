@@ -1,18 +1,31 @@
 #' @title Encrypt a R object
 #'
-#' @aliases serialize2
-#' @description \code{encrypt_object}(or \code{serialize2}) encrypts a R object
-#'   as a raw object or a string and \code{decrypt_object}(or
-#'   \code{unserialize2}) decrypts a raw object or a string(encrypted by
-#'   \code{encrypt_object})
+#' @description \code{encrypt_object} encrypts a R object as a raw object or a
+#'   string and \code{decrypt_object} decrypts a raw object or a
+#'   string(encrypted by \code{encrypt_object})
 #'
 #' @param object A R object to be encrypted
 #' @param ascii \code{TRUE} if the R object is to be encrypted as a string.
 #'   Default is \code{FALSE}
-#' @param key A string without embbeded NULL. Default is 'pass'.
+#' @param key A string without embbeded NULL. Default is 'pass'
 #' @param method Currently, a stub. It should be 'symmetric'(default)
+#'
 #' @return A raw object if \code{ascii} is \code{FALSE}. A string if
 #'   \code{ascii} is \code{TRUE}.
+#'
+#' @examples
+#' temp <- encrypt_object(1:3)
+#' all(
+#'   is.raw(temp)
+#'   , decrypt_object(temp) == 1:3)
+#'
+#' temp <- encrypt_object(iris, ascii = TRUE)
+#' all(
+#'   is.character(temp)
+#'   , decrypt_object(temp) == iris
+#'   , identical(decrypt_object(temp), iris))
+#' rm(temp)
+#'
 #' @export
 #'
 encrypt_object  <- function(object
@@ -48,21 +61,32 @@ encrypt_object  <- function(object
     return(object_enc_raw)
   }
 }
-serialize2 <- encrypt_object
 
 #' @title Decrypt an encrypted R object
 #'
-#' @aliases unserialize2
-#' @description \code{encrypt_object}(or \code{serialize2}) encrypts a R object
-#'   as a raw object or a string and \code{decrypt_object}(or
-#'   \code{unserialize2}) decrypts a raw object or a string(encrypted by
-#'   \code{encrypt_object})
+#' @description \code{encrypt_object} encrypts a R object as a raw object or a
+#'   string and \code{decrypt_object} decrypts a raw object or a
+#'   string(encrypted by \code{encrypt_object})
 #'
 #' @param encryptedObject A raw object or a string to be decrypted
 #' @param key A string without embbeded NULL. Default is 'pass'.
 #' @param method Currently, a stub. It should be 'symmetric'(default)
 #'
 #' @return A R object
+#'
+#' @examples
+#' temp <- encrypt_object(1:3)
+#' all(
+#'   is.raw(temp)
+#'   , decrypt_object(temp) == 1:3)
+#'
+#' temp <- encrypt_object(iris, ascii = TRUE)
+#' all(
+#'   is.character(temp)
+#'   , decrypt_object(temp) == iris
+#'   , identical(decrypt_object(temp), iris))
+#' rm(temp)
+#'
 #' @export
 #'
 decrypt_object  <- function(encryptedObject
@@ -99,4 +123,3 @@ decrypt_object  <- function(encryptedObject
   }
   return(unserialize(object_dec_raw))
 }
-unserialize2 <- decrypt_object

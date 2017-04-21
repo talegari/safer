@@ -2,7 +2,6 @@
 % Please edit documentation in R/object.R
 \name{encrypt_object}
 \alias{encrypt_object}
-\alias{serialize2}
 \title{Encrypt a R object}
 \usage{
 encrypt_object(object, ascii = FALSE, key = "pass", method = "symmetric")
@@ -13,7 +12,7 @@ encrypt_object(object, ascii = FALSE, key = "pass", method = "symmetric")
 \item{ascii}{\code{TRUE} if the R object is to be encrypted as a string.
 Default is \code{FALSE}}
 
-\item{key}{A string without embbeded NULL. Default is 'pass'.}
+\item{key}{A string without embbeded NULL. Default is 'pass'}
 
 \item{method}{Currently, a stub. It should be 'symmetric'(default)}
 }
@@ -22,8 +21,21 @@ A raw object if \code{ascii} is \code{FALSE}. A string if
   \code{ascii} is \code{TRUE}.
 }
 \description{
-\code{encrypt_object}(or \code{serialize2}) encrypts a R object
-  as a raw object or a string and \code{decrypt_object}(or
-  \code{unserialize2}) decrypts a raw object or a string(encrypted by
-  \code{encrypt_object})
+\code{encrypt_object} encrypts a R object as a raw object or a
+  string and \code{decrypt_object} decrypts a raw object or a
+  string(encrypted by \code{encrypt_object})
+}
+\examples{
+temp <- encrypt_object(1:3)
+all(
+  is.raw(temp)
+  , decrypt_object(temp) == 1:3)
+
+temp <- encrypt_object(iris, ascii = TRUE)
+all(
+  is.character(temp)
+  , decrypt_object(temp) == iris
+  , identical(decrypt_object(temp), iris))
+rm(temp)
+
 }

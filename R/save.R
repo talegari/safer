@@ -1,11 +1,10 @@
 #' @title Save a R object to a connection
 #'
 #' @aliases save2
-#' @description \code{save_object}(or \code{save2}) encrypts a R object to raw
-#'   or text connection or a file. \code{retrieve_object}(or \code{load2})
-#'   decrypts a raw or a text connection or a file (encrypted by
-#'   \code{save_object} or \code{save2}). Note that \code{load2} returns the
-#'   object.
+#' @description \code{save_object} encrypts a R object to raw or text connection
+#'   or a file. \code{retrieve_object} decrypts a raw or a text connection or a
+#'   file (encrypted by \code{save_object}). Note that \code{retrieve_object}
+#'   returns the object.
 #'
 #' @param object A R object to be encrypted
 #' @param conn A connection or a file where the encrypted content is written. If
@@ -15,10 +14,23 @@
 #' @param ascii TRUE, if the encrypted output is a string(written to the text
 #'   connection). FALSE, if the encrypted output is a raw object(written to the
 #'   raw connection)
-#' @param key A string without embbeded NULL. Default is 'pass'.
+#' @param key A string without embbeded NULL. Default is 'pass'
 #' @param method Currently, a stub. It should be 'symmetric'(default)
 #'
 #' @return An invisible TRUE
+#'
+#' @examples
+#' all(
+#'   save_object(iris, conn = "iris_safer.bin")
+#'   , identical(retrieve_object(conn = "iris_safer.bin"), iris)
+#'   , unlink("iris_safer.bin") == 0
+#' )
+#'
+#' all(
+#'   save_object(iris, conn = "iris_safer_2.txt", ascii = TRUE)
+#'   , identical(retrieve_object(conn = "iris_safer_2.txt", ascii = TRUE), iris)
+#'   , unlink("iris_safer_2.txt") == 0
+#' )
 #'
 #' @export
 #'
@@ -97,16 +109,14 @@ save_object     <- function(object
   }
   return(TRUE)
 }
-save2 <- save_object
 
 #' @title Retrieve a R object from a connection
 #'
 #' @aliases load2
-#' @description \code{save_object}(or \code{save2}) encrypts a R object to raw
-#'   or text connection or a file. \code{retrieve_object}(or \code{load2})
-#'   decrypts a raw or a text connection or a file (encrypted by
-#'   \code{save_object} or \code{save2}). Note that \code{load2} returns the
-#'   object.
+#' @description \code{save_object} encrypts a R object to raw or text connection
+#'   or a file. \code{retrieve_object} decrypts a raw or a text connection or a
+#'   file (encrypted by \code{save_object}). Note that \code{retrieve_object}
+#'   returns the object.
 #'
 #' @param conn A connection or a file to be decrypted.
 #' @param ascii TRUE, if conn is a text connection or a ascii file. FALSE, if
@@ -115,6 +125,19 @@ save2 <- save_object
 #' @param method Currently, a stub. It should be 'symmetric'(default).
 #'
 #' @return An invisible TRUE
+#'
+#' @examples
+#' all(
+#'   save_object(iris, conn = "iris_safer.bin")
+#'   , identical(retrieve_object(conn = "iris_safer.bin"), iris)
+#'   , unlink("iris_safer.bin") == 0
+#' )
+#'
+#' all(
+#'   save_object(iris, conn = "iris_safer_2.txt", ascii = TRUE)
+#'   , identical(retrieve_object(conn = "iris_safer_2.txt", ascii = TRUE), iris)
+#'   , unlink("iris_safer_2.txt") == 0
+#' )
 #'
 #' @export
 #'
@@ -192,4 +215,3 @@ retrieve_object <- function(conn
   # return                         ----
   return(unserialize(object_dec_raw))
 }
-load2 <- retrieve_object

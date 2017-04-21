@@ -1,8 +1,8 @@
 #' @title safer
 #'
 #' @description A consistent interface to encrypt/decrypt strings, R objects,
-#'   connections/files. Alternatives for base R functions
-#'   'serialize/unserialize', 'save/load' are provided.
+#'   files. Alternatives for base R functions 'serialize/unserialize',
+#'   'save/load' are provided.
 #'
 #'   The following functions are provided:
 #'
@@ -15,11 +15,9 @@
 #'   object or a string and \code{decrypt_object}(or \code{unserialize2})
 #'   decrypts a raw object or a string(encrypted by \code{encrypt_object})
 #'
-#'   \strong{encrypt_conn/decrypt_conn (or encrypt_file/decrypt_file)}:
-#'   \code{encrypt_conn}(or \code{encrypt_file}) encrypts a raw connection to a
-#'   text connection or a file. \code{decrypt_conn}(or \code{decrypt_file})
-#'   decrypts a text connection or a file (encrypted by \code{encrypt_conn} or
-#'   \code{encrypt_file})
+#'   \strong{encrypt_file/decrypt_file}: \code{encrypt_file} encrypts file into
+#'   another binary or ascii file. \code{decrypt_file}) decrypts a file
+#'   (encrypted by \code{encrypt_file})
 #'
 #'   \strong{save_object/retrieve_object (or save2/load2)}:
 #'   \code{save_object}(or \code{save2}) encrypts a R object to raw or text

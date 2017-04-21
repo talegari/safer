@@ -20,7 +20,7 @@ connection}
 connection). FALSE, if the encrypted output is a raw object(written to the
 raw connection)}
 
-\item{key}{A string without embbeded NULL. Default is 'pass'.}
+\item{key}{A string without embbeded NULL. Default is 'pass'}
 
 \item{method}{Currently, a stub. It should be 'symmetric'(default)}
 }
@@ -28,9 +28,22 @@ raw connection)}
 An invisible TRUE
 }
 \description{
-\code{save_object}(or \code{save2}) encrypts a R object to raw
-  or text connection or a file. \code{retrieve_object}(or \code{load2})
-  decrypts a raw or a text connection or a file (encrypted by
-  \code{save_object} or \code{save2}). Note that \code{load2} returns the
-  object.
+\code{save_object} encrypts a R object to raw or text connection
+  or a file. \code{retrieve_object} decrypts a raw or a text connection or a
+  file (encrypted by \code{save_object}). Note that \code{retrieve_object}
+  returns the object.
+}
+\examples{
+all(
+  save_object(iris, conn = "iris_safer.bin")
+  , identical(retrieve_object(conn = "iris_safer.bin"), iris)
+  , unlink("iris_safer.bin") == 0
+)
+
+all(
+  save_object(iris, conn = "iris_safer_2.txt", ascii = TRUE)
+  , identical(retrieve_object(conn = "iris_safer_2.txt", ascii = TRUE), iris)
+  , unlink("iris_safer_2.txt") == 0
+)
+
 }
