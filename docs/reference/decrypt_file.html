@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -51,6 +52,12 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
@@ -129,7 +136,7 @@ Default is <code>FALSE</code></p></td>
   , <span class='fu'>file.exists</span>(<span class='st'>"iris_encrypted.bin"</span>)
   , <span class='fu'>decrypt_file</span>(<span class='st'>"iris_encrypted.bin"</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='st'>"iris_2.csv"</span>)
   , <span class='fu'>file.exists</span>(<span class='st'>"iris_2.csv"</span>)
-  , <span class='kw'>tools</span><span class='kw'>::</span><span class='fu'>md5sum</span>(<span class='st'>"iris_2.csv"</span>) <span class='kw'>==</span> <span class='kw'>tools</span><span class='kw'>::</span><span class='fu'>md5sum</span>(<span class='st'>"iris.csv"</span>)
+  , <span class='kw pkg'>tools</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/tools/topics/md5sum'>md5sum</a></span>(<span class='st'>"iris_2.csv"</span>) <span class='kw'>==</span> <span class='kw pkg'>tools</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/tools/topics/md5sum'>md5sum</a></span>(<span class='st'>"iris.csv"</span>)
   , <span class='fu'>unlink</span>(<span class='st'>"iris.csv"</span>) <span class='kw'>==</span> <span class='fl'>0</span>
   , <span class='fu'>unlink</span>(<span class='st'>"iris_2.csv"</span>) <span class='kw'>==</span> <span class='fl'>0</span>
   , <span class='fu'>unlink</span>(<span class='st'>"iris_encrypted.bin"</span>) <span class='kw'>==</span> <span class='fl'>0</span>
@@ -140,7 +147,7 @@ Default is <code>FALSE</code></p></td>
   , <span class='fu'>file.exists</span>(<span class='st'>"iris_encrypted.txt"</span>)
   , <span class='fu'>decrypt_file</span>(<span class='st'>"iris_encrypted.txt"</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='st'>"iris_2.csv"</span>, <span class='kw'>ascii</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
   , <span class='fu'>file.exists</span>(<span class='st'>"iris_2.csv"</span>)
-  , <span class='kw'>tools</span><span class='kw'>::</span><span class='fu'>md5sum</span>(<span class='st'>"iris_2.csv"</span>) <span class='kw'>==</span> <span class='kw'>tools</span><span class='kw'>::</span><span class='fu'>md5sum</span>(<span class='st'>"iris.csv"</span>)
+  , <span class='kw pkg'>tools</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/tools/topics/md5sum'>md5sum</a></span>(<span class='st'>"iris_2.csv"</span>) <span class='kw'>==</span> <span class='kw pkg'>tools</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/tools/topics/md5sum'>md5sum</a></span>(<span class='st'>"iris.csv"</span>)
   , <span class='fu'>unlink</span>(<span class='st'>"iris.csv"</span>) <span class='kw'>==</span> <span class='fl'>0</span>
   , <span class='fu'>unlink</span>(<span class='st'>"iris_2.csv"</span>) <span class='kw'>==</span> <span class='fl'>0</span>
   , <span class='fu'>unlink</span>(<span class='st'>"iris_encrypted.txt"</span>) <span class='kw'>==</span> <span class='fl'>0</span>
@@ -154,7 +161,7 @@ Default is <code>FALSE</code></p></td>
   , <span class='fu'>file.exists</span>(<span class='st'>"iris_encrypted.bin"</span>)
   , <span class='fu'>decrypt_file</span>(<span class='st'>"iris_encrypted.bin"</span>, <span class='no'>bob</span>$<span class='no'>private_key</span>, <span class='no'>alice</span>$<span class='no'>public_key</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='st'>"iris_2.csv"</span>)
   , <span class='fu'>file.exists</span>(<span class='st'>"iris_2.csv"</span>)
-  , <span class='kw'>tools</span><span class='kw'>::</span><span class='fu'>md5sum</span>(<span class='st'>"iris_2.csv"</span>) <span class='kw'>==</span> <span class='kw'>tools</span><span class='kw'>::</span><span class='fu'>md5sum</span>(<span class='st'>"iris.csv"</span>)
+  , <span class='kw pkg'>tools</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/tools/topics/md5sum'>md5sum</a></span>(<span class='st'>"iris_2.csv"</span>) <span class='kw'>==</span> <span class='kw pkg'>tools</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/tools/topics/md5sum'>md5sum</a></span>(<span class='st'>"iris.csv"</span>)
   , <span class='fu'>unlink</span>(<span class='st'>"iris.csv"</span>) <span class='kw'>==</span> <span class='fl'>0</span>
   , <span class='fu'>unlink</span>(<span class='st'>"iris_2.csv"</span>) <span class='kw'>==</span> <span class='fl'>0</span>
   , <span class='fu'>unlink</span>(<span class='st'>"iris_encrypted.bin"</span>) <span class='kw'>==</span> <span class='fl'>0</span>

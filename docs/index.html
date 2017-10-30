@@ -29,6 +29,12 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
+  <a href="index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="reference/index.html">Reference</a>
 </li>
 <li>
@@ -216,7 +222,7 @@ temp2 &lt;-<span class="st"> </span><span class="kw"><a href="reference/decrypt_
   , <span class="kw">file.exists</span>(<span class="st">"iris_encrypted.bin"</span>)
   , <span class="kw"><a href="reference/decrypt_file.html">decrypt_file</a></span>(<span class="st">"iris_encrypted.bin"</span>, <span class="dt">outfile =</span> <span class="st">"iris_2.csv"</span>)
   , <span class="kw">file.exists</span>(<span class="st">"iris_2.csv"</span>)
-  , tools<span class="op">::</span><span class="kw">md5sum</span>(<span class="st">"iris_2.csv"</span>) <span class="op">==</span><span class="st"> </span>tools<span class="op">::</span><span class="kw">md5sum</span>(<span class="st">"iris.csv"</span>)
+  , tools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/tools/topics/md5sum">md5sum</a></span>(<span class="st">"iris_2.csv"</span>) <span class="op">==</span><span class="st"> </span>tools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/tools/topics/md5sum">md5sum</a></span>(<span class="st">"iris.csv"</span>)
   , <span class="kw">unlink</span>(<span class="st">"iris.csv"</span>) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>
   , <span class="kw">unlink</span>(<span class="st">"iris_2.csv"</span>) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>
   , <span class="kw">unlink</span>(<span class="st">"iris_encrypted.bin"</span>) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>
@@ -230,7 +236,7 @@ temp2 &lt;-<span class="st"> </span><span class="kw"><a href="reference/decrypt_
   , <span class="kw">file.exists</span>(<span class="st">"iris_encrypted.txt"</span>)
   , <span class="kw"><a href="reference/decrypt_file.html">decrypt_file</a></span>(<span class="st">"iris_encrypted.txt"</span>, <span class="dt">outfile =</span> <span class="st">"iris_2.csv"</span>, <span class="dt">ascii =</span> <span class="ot">TRUE</span>)
   , <span class="kw">file.exists</span>(<span class="st">"iris_2.csv"</span>)
-  , tools<span class="op">::</span><span class="kw">md5sum</span>(<span class="st">"iris_2.csv"</span>) <span class="op">==</span><span class="st"> </span>tools<span class="op">::</span><span class="kw">md5sum</span>(<span class="st">"iris.csv"</span>)
+  , tools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/tools/topics/md5sum">md5sum</a></span>(<span class="st">"iris_2.csv"</span>) <span class="op">==</span><span class="st"> </span>tools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/tools/topics/md5sum">md5sum</a></span>(<span class="st">"iris.csv"</span>)
   , <span class="kw">unlink</span>(<span class="st">"iris.csv"</span>) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>
   , <span class="kw">unlink</span>(<span class="st">"iris_2.csv"</span>) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>
   , <span class="kw">unlink</span>(<span class="st">"iris_encrypted.txt"</span>) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>
@@ -247,7 +253,7 @@ bob   &lt;-<span class="st"> </span><span class="kw"><a href="reference/keypair.
   , <span class="kw">file.exists</span>(<span class="st">"iris_encrypted.bin"</span>)
   , <span class="kw"><a href="reference/decrypt_file.html">decrypt_file</a></span>(<span class="st">"iris_encrypted.bin"</span>, bob<span class="op">$</span>private_key, alice<span class="op">$</span>public_key, <span class="dt">outfile =</span> <span class="st">"iris_2.csv"</span>)
   , <span class="kw">file.exists</span>(<span class="st">"iris_2.csv"</span>)
-  , tools<span class="op">::</span><span class="kw">md5sum</span>(<span class="st">"iris_2.csv"</span>) <span class="op">==</span><span class="st"> </span>tools<span class="op">::</span><span class="kw">md5sum</span>(<span class="st">"iris.csv"</span>)
+  , tools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/tools/topics/md5sum">md5sum</a></span>(<span class="st">"iris_2.csv"</span>) <span class="op">==</span><span class="st"> </span>tools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/tools/topics/md5sum">md5sum</a></span>(<span class="st">"iris.csv"</span>)
   , <span class="kw">unlink</span>(<span class="st">"iris.csv"</span>) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>
   , <span class="kw">unlink</span>(<span class="st">"iris_2.csv"</span>) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>
   , <span class="kw">unlink</span>(<span class="st">"iris_encrypted.bin"</span>) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>
