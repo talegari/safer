@@ -2,20 +2,26 @@
 % Please edit documentation in R/save.R
 \name{retrieve_object}
 \alias{retrieve_object}
-\alias{load2}
-\title{Retrieve a R object from a connection}
+\title{Retrieve an object from a connection(or a file)}
 \usage{
-retrieve_object(conn, ascii = FALSE, key = "pass", method = "symmetric")
+retrieve_object(conn, key = "pass", pkey = NULL, ascii = FALSE)
 }
 \arguments{
-\item{conn}{A connection or a file to be decrypted.}
+\item{conn}{A connection or a file where the decrypted content is written. If
+\code{ascii} is TRUE, an decrypted text is written to the connection. Else,
+when \code{ascii} is FALSE(default), a raw object is written to the
+connection}
 
-\item{ascii}{TRUE, if conn is a text connection or a ascii file. FALSE, if
-conn is a raw connection or a binary file}
+\item{key}{For symmetric decryption, 'pkey' should be NULL (default) and
+'key' can be either a string (Default is 'pass') or a raw object. For
+asymmetric decryption, both 'key' (private key of the decrypter) and 'pkey'
+(public key of the encrypter) should be raw objects.}
 
-\item{key}{A string without embbeded NULL. Default is 'pass'.}
+\item{pkey}{See 'key'}
 
-\item{method}{Currently, a stub. It should be 'symmetric'(default).}
+\item{ascii}{TRUE, if the encrypted output is a string(written to the text
+connection). FALSE, if the encrypted output is a raw object(written to the
+raw connection)}
 }
 \value{
 An invisible TRUE
@@ -27,6 +33,7 @@ An invisible TRUE
   returns the object.
 }
 \examples{
+# symmetric case:
 all(
   save_object(iris, conn = "iris_safer.bin")
   , identical(retrieve_object(conn = "iris_safer.bin"), iris)
@@ -37,6 +44,15 @@ all(
   save_object(iris, conn = "iris_safer_2.txt", ascii = TRUE)
   , identical(retrieve_object(conn = "iris_safer_2.txt", ascii = TRUE), iris)
   , unlink("iris_safer_2.txt") == 0
+)
+
+# asymmetric case:
+alice <- keypair()
+bob   <- keypair()
+all(
+  save_object(iris, alice$private_key, bob$public_key, conn = "iris_safer.bin")
+  , identical(retrieve_object(conn = "iris_safer.bin", bob$private_key, alice$public_key), iris)
+  , unlink("iris_safer.bin") == 0
 )
 
 }

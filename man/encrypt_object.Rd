@@ -2,30 +2,34 @@
 % Please edit documentation in R/object.R
 \name{encrypt_object}
 \alias{encrypt_object}
-\title{Encrypt a R object}
+\title{Encrypt a object}
 \usage{
-encrypt_object(object, ascii = FALSE, key = "pass", method = "symmetric")
+encrypt_object(object, key = "pass", pkey = NULL, ascii = FALSE)
 }
 \arguments{
-\item{object}{A R object to be encrypted}
+\item{object}{Object to be encrypted}
 
-\item{ascii}{\code{TRUE} if the R object is to be encrypted as a string.
+\item{key}{For symmetric encryption, 'pkey' should be NULL (default) and
+'key' can be either a string (Default is 'pass') or a raw object. For
+asymmetric encryption, both 'key' (private key of the encrypter) and 'pkey'
+(public key of the decrypter) should be raw objects.}
+
+\item{pkey}{See 'key'}
+
+\item{ascii}{\code{TRUE} if the object is to be encrypted as a string.
 Default is \code{FALSE}}
-
-\item{key}{A string without embbeded NULL. Default is 'pass'}
-
-\item{method}{Currently, a stub. It should be 'symmetric'(default)}
 }
 \value{
 A raw object if \code{ascii} is \code{FALSE}. A string if
   \code{ascii} is \code{TRUE}.
 }
 \description{
-\code{encrypt_object} encrypts a R object as a raw object or a
+\code{encrypt_object} encrypts a object as a raw object or a
   string and \code{decrypt_object} decrypts a raw object or a
   string(encrypted by \code{encrypt_object})
 }
 \examples{
+# symmetric case:
 temp <- encrypt_object(1:3)
 all(
   is.raw(temp)
@@ -37,5 +41,12 @@ all(
   , decrypt_object(temp) == iris
   , identical(decrypt_object(temp), iris))
 rm(temp)
+
+# asymmetric case:
+alice <- keypair()
+bob   <- keypair()
+temp  <- encrypt_object(1:10, alice$private_key, bob$public_key)
+temp2 <- decrypt_object(temp, bob$private_key, alice$public_key)
+identical(1:10, temp2)
 
 }

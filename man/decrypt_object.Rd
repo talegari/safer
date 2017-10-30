@@ -2,19 +2,23 @@
 % Please edit documentation in R/object.R
 \name{decrypt_object}
 \alias{decrypt_object}
-\title{Decrypt an encrypted R object}
+\title{Decrypt a object}
 \usage{
-decrypt_object(encryptedObject, key = "pass", method = "symmetric")
+decrypt_object(object, key = "pass", pkey = NULL)
 }
 \arguments{
-\item{encryptedObject}{A raw object or a string to be decrypted}
+\item{object}{Object to be decrypted}
 
-\item{key}{A string without embbeded NULL. Default is 'pass'.}
+\item{key}{For symmetric decryption, 'pkey' should be NULL (default) and
+'key' can be either a string (Default is 'pass') or a raw object. For
+asymmetric decryption, both 'key' (private key of the decrypter) and 'pkey'
+(public key of the encrypter) should be raw objects.}
 
-\item{method}{Currently, a stub. It should be 'symmetric'(default)}
+\item{pkey}{See 'key'}
 }
 \value{
-A R object
+A raw object if \code{ascii} is \code{FALSE}. A string if
+  \code{ascii} is \code{TRUE}.
 }
 \description{
 \code{encrypt_object} encrypts a R object as a raw object or a
@@ -22,6 +26,7 @@ A R object
   string(encrypted by \code{encrypt_object})
 }
 \examples{
+# symmetric case:
 temp <- encrypt_object(1:3)
 all(
   is.raw(temp)
@@ -33,5 +38,12 @@ all(
   , decrypt_object(temp) == iris
   , identical(decrypt_object(temp), iris))
 rm(temp)
+
+# asymmetric case:
+alice <- keypair()
+bob   <- keypair()
+temp  <- encrypt_object(1:10, alice$private_key, bob$public_key)
+temp2 <- decrypt_object(temp, bob$private_key, alice$public_key)
+identical(1:10, temp2)
 
 }

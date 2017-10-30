@@ -2,19 +2,23 @@
 % Please edit documentation in R/string.R
 \name{decrypt_string}
 \alias{decrypt_string}
-\title{Decrypt an encrypted string}
+\title{Decrypt a string}
 \usage{
-decrypt_string(encryptedString, key = "pass", method = "symmetric")
+decrypt_string(string, key = "pass", pkey = NULL)
 }
 \arguments{
-\item{encryptedString}{A string(character vector of length 1) without embedded NULL to be decrypted.}
+\item{string}{A string(character vector of length 1) without embedded NULL to
+be encrypted.}
 
-\item{key}{A string without embbeded NULL. Default is 'pass'.}
+\item{key}{For symmetric decryption, 'pkey' should be NULL (default) and
+'key' can be either a string (Default is 'pass') or a raw object. For
+asymmetric decryption, both 'key' (private key of the decrypter) and 'pkey'
+(public key of the encrypter) should be raw objects.}
 
-\item{method}{Currently, a stub. It should be 'symmetric'(default)}
+\item{pkey}{See 'key'}
 }
 \value{
-A decrypted string
+An encrypted string
 }
 \description{
 \code{encrypt_string} encrypts a string as a string and
@@ -22,10 +26,19 @@ A decrypted string
   \code{encrypt_string})
 }
 \examples{
+# symmetric case:
 temp <- encrypt_string("hello, how are you", key = "secret")
 all(
   is.character(temp)
   , decrypt_string(temp, "secret") == "hello, how are you"
-  , class(try(decrypt_string(temp, "nopass"), silent = TRUE)) == "try-error")
+  , class(try(decrypt_string(temp, "nopass"), silent = TRUE)) == "try-error"
+  )
+
+# asymmetric case:
+alice <- keypair()
+bob   <- keypair()
+temp  <- encrypt_string("hello asymmetric", alice$private_key, bob$public_key)
+temp2 <- decrypt_string(temp, bob$private_key, alice$public_key)
+identical("hello asymmetric", temp2)
 
 }

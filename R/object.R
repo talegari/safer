@@ -1,19 +1,23 @@
-#' @title Encrypt a R object
+#' @title Encrypt a object
 #'
-#' @description \code{encrypt_object} encrypts a R object as a raw object or a
+#' @description \code{encrypt_object} encrypts a object as a raw object or a
 #'   string and \code{decrypt_object} decrypts a raw object or a
 #'   string(encrypted by \code{encrypt_object})
 #'
-#' @param object A R object to be encrypted
-#' @param ascii \code{TRUE} if the R object is to be encrypted as a string.
+#' @param object Object to be encrypted
+#' @param ascii \code{TRUE} if the object is to be encrypted as a string.
 #'   Default is \code{FALSE}
-#' @param key A string without embbeded NULL. Default is 'pass'
-#' @param method Currently, a stub. It should be 'symmetric'(default)
+#' @param key For symmetric encryption, 'pkey' should be NULL (default) and
+#'   'key' can be either a string (Default is 'pass') or a raw object. For
+#'   asymmetric encryption, both 'key' (private key of the encrypter) and 'pkey'
+#'   (public key of the decrypter) should be raw objects.
+#' @param pkey See 'key'
 #'
 #' @return A raw object if \code{ascii} is \code{FALSE}. A string if
 #'   \code{ascii} is \code{TRUE}.
 #'
 #' @examples
+#' # symmetric case:
 #' temp <- encrypt_object(1:3)
 #' all(
 #'   is.raw(temp)
@@ -26,23 +30,41 @@
 #'   , identical(decrypt_object(temp), iris))
 #' rm(temp)
 #'
+#' # asymmetric case:
+#' alice <- keypair()
+#' bob   <- keypair()
+#' temp  <- encrypt_object(1:10, alice$private_key, bob$public_key)
+#' temp2 <- decrypt_object(temp, bob$private_key, alice$public_key)
+#' identical(1:10, temp2)
+#'
 #' @export
 #'
 encrypt_object  <- function(object
-                            , ascii  = FALSE
                             , key    = "pass"
-                            , method = "symmetric"){
+                            , pkey   = NULL
+                            , ascii  = FALSE){
+
   assert_that(!missing(object))
   assert_that(is.flag(ascii))
-  assert_that(is.string(key))
-  assert_that(method %in% c("symmetric"))
+  if(is.null(pkey)){
+    method <- "symmetric"
+    assert_that(is.string(key) || is.raw(key))
+  } else {
+    method <- "asymmetric"
+    assert_that(is.raw(key))
+    assert_that(is.raw(pkey))
+  }
 
   raw_object <- try(serialize(object, NULL), silent = TRUE)
   if(is.error(raw_object)){
     stop("Unable to serialize the object")
   }
+  if(is.string(key)){
+    keyAsRaw <- try(hash(charToRaw(key)), silent = TRUE)
+  } else {
+    keyAsRaw <- key
+  }
 
-  keyAsRaw <- try(hash(charToRaw(key)), silent = TRUE)
   if(is.error(keyAsRaw)){
     stop("Unable to convert 'key' into raw. Possibly encountered an embedded NULL.")
   }
@@ -52,6 +74,11 @@ encrypt_object  <- function(object
                                    , keyAsRaw
                                    , hash(charToRaw("nounce"), size = 24)
                                    )
+  } else {
+    object_enc_raw <- auth_encrypt(raw_object
+                                   , key
+                                   , pkey
+                                   , hash(charToRaw("nounce"), size = 24))
   }
 
   attributes(object_enc_raw) <- NULL
@@ -62,19 +89,24 @@ encrypt_object  <- function(object
   }
 }
 
-#' @title Decrypt an encrypted R object
+#' @title Decrypt a object
 #'
 #' @description \code{encrypt_object} encrypts a R object as a raw object or a
 #'   string and \code{decrypt_object} decrypts a raw object or a
 #'   string(encrypted by \code{encrypt_object})
 #'
-#' @param encryptedObject A raw object or a string to be decrypted
-#' @param key A string without embbeded NULL. Default is 'pass'.
-#' @param method Currently, a stub. It should be 'symmetric'(default)
+#' @param object Object to be decrypted
+#' @param key For symmetric decryption, 'pkey' should be NULL (default) and
+#'   'key' can be either a string (Default is 'pass') or a raw object. For
+#'   asymmetric decryption, both 'key' (private key of the decrypter) and 'pkey'
+#'   (public key of the encrypter) should be raw objects.
+#' @param pkey See 'key'
 #'
-#' @return A R object
+#' @return A raw object if \code{ascii} is \code{FALSE}. A string if
+#'   \code{ascii} is \code{TRUE}.
 #'
 #' @examples
+#' # symmetric case:
 #' temp <- encrypt_object(1:3)
 #' all(
 #'   is.raw(temp)
@@ -87,39 +119,61 @@ encrypt_object  <- function(object
 #'   , identical(decrypt_object(temp), iris))
 #' rm(temp)
 #'
+#' # asymmetric case:
+#' alice <- keypair()
+#' bob   <- keypair()
+#' temp  <- encrypt_object(1:10, alice$private_key, bob$public_key)
+#' temp2 <- decrypt_object(temp, bob$private_key, alice$public_key)
+#' identical(1:10, temp2)
+#'
 #' @export
 #'
-decrypt_object  <- function(encryptedObject
+decrypt_object  <- function(object
                             , key    = "pass"
-                            , method = "symmetric"){
-  assert_that(is.string(key))
-  assert_that(method %in% c("symmetric"))
-  assert_that(class(encryptedObject) == "raw" || is.string(encryptedObject))
+                            , pkey   = NULL){
 
-  if(is.string(encryptedObject)){
-    encryptedObject <- try(base64decode(encryptedObject), silent = TRUE)
-    if(is.error(encryptedObject)){
-      stop("Unable to Decrypt. Ensure that 'encryptedObject' was the result of 'encypt_object' or 'serialize2' function with param 'ascii' set to TRUE.")
+  assert_that(!missing(object))
+  if(is.null(pkey)){
+    method <- "symmetric"
+    assert_that(is.string(key) || is.raw(key))
+  } else {
+    method <- "asymmetric"
+    assert_that(is.raw(key))
+    assert_that(is.raw(pkey))
+  }
+  assert_that(is.raw(object) || is.string(object))
+
+  if(is.string(object)){
+    object <- try(base64decode(object), silent = TRUE)
+    if(is.error(object)){
+      stop("Unable to Decrypt. Ensure that input was the result of 'encypt_object' function with 'ascii' set to TRUE.")
     }
   }
-
-  keyAsRaw <- try(hash(charToRaw(key)), silent = TRUE)
-  if(is.error(keyAsRaw)){
-    stop("Unable to convert 'key' into raw. Possibly encountered an embedded NULL.")
+  if(is.string(key)){
+    keyAsRaw <- try(hash(charToRaw(key)), silent = TRUE)
+    if(is.error(keyAsRaw)){
+      stop("Unable to convert 'key' into raw. Possibly encountered an embedded NULL.")
+    }
+  } else {
+    keyAsRaw <- key
   }
 
+
   if(method == "symmetric"){
-    object_dec_raw <-
-      try(data_decrypt(encryptedObject
-                       , keyAsRaw
-                       , hash(charToRaw("nounce"), size = 24)
-                       )
-          , silent = TRUE
-          )
+    object_dec_raw <- try(data_decrypt(object
+                                       , keyAsRaw
+                                       , hash(charToRaw("nounce"), size = 24))
+                          , silent = TRUE)
+  } else {
+    object_dec_raw <- try(auth_decrypt(object
+                                       , key
+                                       , pkey
+                                       , hash(charToRaw("nounce"), size = 24))
+                          , silent = TRUE)
   }
 
   if(is.error(object_dec_raw)){
-    stop("Unable to Decrypt. Ensure that input was generated by 'encypt_object' or 'serialize2' function. Ensure that 'key' and 'method' are correct.")
+    stop("Unable to Decrypt. Ensure that input was generated by 'encypt_object' function.")
   }
   return(unserialize(object_dec_raw))
 }

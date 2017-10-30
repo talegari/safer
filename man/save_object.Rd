@@ -2,27 +2,28 @@
 % Please edit documentation in R/save.R
 \name{save_object}
 \alias{save_object}
-\alias{save2}
-\title{Save a R object to a connection}
+\title{Save an object to a connection(or a file)}
 \usage{
-save_object(object, conn, ascii = FALSE, key = "pass",
-  method = "symmetric")
+save_object(object, key = "pass", pkey = NULL, ascii = FALSE, conn)
 }
 \arguments{
 \item{object}{A R object to be encrypted}
 
-\item{conn}{A connection or a file where the encrypted content is written. If
-\code{ascii} is TRUE, an encrypted text is written to the connection. Else,
-when \code{ascii} is FALSE(default), a raw object is written to the
-connection}
+\item{key}{For symmetric encryption, 'pkey' should be NULL (default) and
+'key' can be either a string (Default is 'pass') or a raw object. For
+asymmetric encryption, both 'key' (private key of the encrypter) and 'pkey'
+(public key of the decrypter) should be raw objects.}
+
+\item{pkey}{See 'key'}
 
 \item{ascii}{TRUE, if the encrypted output is a string(written to the text
 connection). FALSE, if the encrypted output is a raw object(written to the
 raw connection)}
 
-\item{key}{A string without embbeded NULL. Default is 'pass'}
-
-\item{method}{Currently, a stub. It should be 'symmetric'(default)}
+\item{conn}{A connection or a file where the encrypted content is written. If
+\code{ascii} is TRUE, an encrypted text is written to the connection. Else,
+when \code{ascii} is FALSE(default), a raw object is written to the
+connection}
 }
 \value{
 An invisible TRUE
@@ -34,6 +35,7 @@ An invisible TRUE
   returns the object.
 }
 \examples{
+# symmetric case:
 all(
   save_object(iris, conn = "iris_safer.bin")
   , identical(retrieve_object(conn = "iris_safer.bin"), iris)
@@ -44,6 +46,15 @@ all(
   save_object(iris, conn = "iris_safer_2.txt", ascii = TRUE)
   , identical(retrieve_object(conn = "iris_safer_2.txt", ascii = TRUE), iris)
   , unlink("iris_safer_2.txt") == 0
+)
+
+# asymmetric case:
+alice <- keypair()
+bob   <- keypair()
+all(
+  save_object(iris, alice$private_key, bob$public_key, conn = "iris_safer.bin")
+  , identical(retrieve_object(conn = "iris_safer.bin", bob$private_key, alice$public_key), iris)
+  , unlink("iris_safer.bin") == 0
 )
 
 }
