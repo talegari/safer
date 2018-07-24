@@ -2,13 +2,13 @@
 % Please edit documentation in R/string.R
 \name{decrypt_string}
 \alias{decrypt_string}
-\title{Decrypt a string}
+\title{Decrypt a string or a raw vector}
 \usage{
 decrypt_string(string, key = "pass", pkey = NULL)
 }
 \arguments{
 \item{string}{A string(character vector of length 1) without embedded NULL to
-be encrypted.}
+be encrypted. or a raw vector.}
 
 \item{key}{For symmetric decryption, 'pkey' should be NULL (default) and
 'key' can be either a string (Default is 'pass') or a raw object. For
@@ -18,11 +18,11 @@ asymmetric decryption, both 'key' (private key of the decrypter) and 'pkey'
 \item{pkey}{See 'key'}
 }
 \value{
-An encrypted string
+decrypted string
 }
 \description{
-\code{encrypt_string} encrypts a string as a string and
-  \code{decrypt_string} decrypts the encrypted string(encrypted using
+\code{encrypt_string} encrypts a string as a string or a raw vector and
+  \code{decrypt_string} decrypts the encrypted string or a raw vector (encrypted using
   \code{encrypt_string})
 }
 \examples{
@@ -33,6 +33,12 @@ all(
   , decrypt_string(temp, "secret") == "hello, how are you"
   , class(try(decrypt_string(temp, "nopass"), silent = TRUE)) == "try-error"
   )
+
+# string encoded as raw
+res <- encrypt_string("tatvamasi", ascii = FALSE)
+res
+
+isTRUE(identical(decrypt_string(res), "tatvamasi"))
 
 # asymmetric case:
 alice <- keypair()

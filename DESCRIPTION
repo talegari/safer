@@ -1,7 +1,7 @@
 Package: safer
 Type: Package
 Title: Encrypt and Decrypt Strings, R Objects and Files
-Version: 0.2.0
+Version: 0.2.1
 Authors@R: person("KS", "Srikanth", email = "sri.teach@gmail.com", role = c("aut", "cre"))
 Description: A consistent interface to encrypt and decrypt strings, R objects and files using symmetric and asymmetric key encryption.
 Imports:

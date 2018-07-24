@@ -1,4 +1,4 @@
-safer (0.2.0)
+safer
 =============
 
 > A consistent interface to encrypt/decrypt strings, objects, files and
@@ -42,7 +42,7 @@ encryt\_string
 a string
 </td>
 <td>
-string
+string/raw
 </td>
 <td>
 No
@@ -107,7 +107,12 @@ Yes (Output to disk)
       )
 
     ## [1] TRUE
-
+    
+    res <- encrypt_string("tatvamasi", ascii = FALSE)
+    isTRUE(identical(decrypt_string(res), "tatvamasi"))
+    
+    ## [1] TRUE
+    
     # asymmetric case:
     alice <- keypair()
     bob   <- keypair()

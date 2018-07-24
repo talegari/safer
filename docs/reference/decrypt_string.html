@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Decrypt a string — decrypt_string • safer</title>
+<title>Decrypt a string or a raw vector — decrypt_string • safer</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,13 +18,27 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="Decrypt a string or a raw vector — decrypt_string" />
+
+<meta property="og:description" content="encrypt_string encrypts a string as a string or a raw vector and
+  decrypt_string decrypts the encrypted string or a raw vector (encrypted using
+  encrypt_string)" />
+<meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,8 +61,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">safer</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">safer</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -61,7 +79,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -73,6 +91,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -80,27 +99,31 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Decrypt a string</h1>
+    <h1>Decrypt a string or a raw vector</h1>
+    <small class="dont-index">Source: <a href='https://github.com/talegari/safer/blob/master/R/string.R'><code>R/string.R</code></a></small>
+    <div class="hidden name"><code>decrypt_string.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
-    <p><code>encrypt_string</code> encrypts a string as a string and
-  <code>decrypt_string</code> decrypts the encrypted string(encrypted using
+    <p><code>encrypt_string</code> encrypts a string as a string or a raw vector and
+  <code>decrypt_string</code> decrypts the encrypted string or a raw vector (encrypted using
   <code>encrypt_string</code>)</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>decrypt_string</span>(<span class='no'>string</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='st'>"pass"</span>, <span class='kw'>pkey</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>string</th>
       <td><p>A string(character vector of length 1) without embedded NULL to
-be encrypted.</p></td>
+be encrypted. or a raw vector.</p></td>
     </tr>
     <tr>
       <th>key</th>
@@ -117,7 +140,7 @@ asymmetric decryption, both 'key' (private key of the decrypter) and 'pkey'
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An encrypted string</p>
+    <p>decrypted string</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -128,6 +151,10 @@ asymmetric decryption, both 'key' (private key of the decrypter) and 'pkey'
   , <span class='fu'>decrypt_string</span>(<span class='no'>temp</span>, <span class='st'>"secret"</span>) <span class='kw'>==</span> <span class='st'>"hello, how are you"</span>
   , <span class='fu'>class</span>(<span class='fu'>try</span>(<span class='fu'>decrypt_string</span>(<span class='no'>temp</span>, <span class='st'>"nopass"</span>), <span class='kw'>silent</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) <span class='kw'>==</span> <span class='st'>"try-error"</span>
   )</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='co'># string encoded as raw</span>
+<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='encrypt_string.html'>encrypt_string</a></span>(<span class='st'>"tatvamasi"</span>, <span class='kw'>ascii</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='no'>res</span></div><div class='output co'>#&gt;  [1] 62 58 a4 e8 e3 79 f8 1e 8d 9b 9b fe 04 d7 34 19 f4 b1 60 80 f7 34 e3 97 f3</div><div class='input'>
+<span class='fu'>isTRUE</span>(<span class='fu'>identical</span>(<span class='fu'>decrypt_string</span>(<span class='no'>res</span>), <span class='st'>"tatvamasi"</span>))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 <span class='co'># asymmetric case:</span>
 <span class='no'>alice</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='keypair.html'>keypair</a></span>()
 <span class='no'>bob</span>   <span class='kw'>&lt;-</span> <span class='fu'><a href='keypair.html'>keypair</a></span>()
@@ -155,11 +182,14 @@ asymmetric decryption, both 'key' (private key of the decrypter) and 'pkey'
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

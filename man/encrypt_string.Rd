@@ -4,11 +4,11 @@
 \alias{encrypt_string}
 \title{Encrypt a string}
 \usage{
-encrypt_string(string, key = "pass", pkey = NULL)
+encrypt_string(string, key = "pass", pkey = NULL, ascii = TRUE)
 }
 \arguments{
 \item{string}{A string(character vector of length 1) without embedded NULL to
-be encrypted.}
+be encrypted or a raw vector.}
 
 \item{key}{For symmetric encryption, 'pkey' should be NULL (default) and
 'key' can be either a string (Default is 'pass') or a raw object. For
@@ -16,14 +16,17 @@ asymmetric encryption, both 'key' (private key of the encrypter) and 'pkey'
 (public key of the decrypter) should be raw objects.}
 
 \item{pkey}{See 'key'}
+
+\item{ascii}{(flag) When TRUE (default), the output is a string after base64
+encoding. Else, the output is a raw vector.}
 }
 \value{
-An encrypted string
+An encrypted string or a raw vector.
 }
 \description{
-\code{encrypt_string} encrypts a string as a string and
-  \code{decrypt_string} decrypts the encrypted string(encrypted using
-  \code{encrypt_string})
+\code{encrypt_string} encrypts a string as a string or a raw
+  vector and \code{decrypt_string} decrypts the encrypted string or a raw
+  vector (encrypted using \code{encrypt_string})
 }
 \examples{
 # symmetric case:
@@ -33,6 +36,12 @@ all(
   , decrypt_string(temp, "secret") == "hello, how are you"
   , class(try(decrypt_string(temp, "nopass"), silent = TRUE)) == "try-error"
   )
+
+# string encoded as raw
+res <- encrypt_string("tatvamasi", ascii = FALSE)
+res
+
+isTRUE(identical(decrypt_string(res), "tatvamasi"))
 
 # asymmetric case:
 alice <- keypair()
