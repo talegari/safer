@@ -4,7 +4,8 @@
 \alias{encrypt_file}
 \title{Encrypt a file}
 \usage{
-encrypt_file(infile, key = "pass", pkey = NULL, ascii = FALSE, outfile)
+encrypt_file(infile, key = "pass", pkey = NULL, ascii = FALSE,
+  outfile)
 }
 \arguments{
 \item{infile}{file to be encrypted}

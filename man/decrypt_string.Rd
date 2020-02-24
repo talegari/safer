@@ -4,7 +4,7 @@
 \alias{decrypt_string}
 \title{Decrypt a string or a raw vector}
 \usage{
-decrypt_string(string, key = "pass", pkey = NULL)
+decrypt_string(string, key = "pass", pkey = NULL, url = FALSE)
 }
 \arguments{
 \item{string}{A string(character vector of length 1) without embedded NULL to
@@ -16,6 +16,9 @@ asymmetric decryption, both 'key' (private key of the decrypter) and 'pkey'
 (public key of the encrypter) should be raw objects.}
 
 \item{pkey}{See 'key'}
+
+\item{url}{(flag, default: FALSE) Whether the encoded string was generated
+url friendly.}
 }
 \value{
 decrypted string

@@ -4,7 +4,8 @@
 \alias{encrypt_string}
 \title{Encrypt a string}
 \usage{
-encrypt_string(string, key = "pass", pkey = NULL, ascii = TRUE)
+encrypt_string(string, key = "pass", pkey = NULL, ascii = TRUE,
+  url = FALSE)
 }
 \arguments{
 \item{string}{A string(character vector of length 1) without embedded NULL to
@@ -19,6 +20,9 @@ asymmetric encryption, both 'key' (private key of the encrypter) and 'pkey'
 
 \item{ascii}{(flag) When TRUE (default), the output is a string after base64
 encoding. Else, the output is a raw vector.}
+
+\item{url}{(flag, default: FALSE) Whether the encoded string has to be url
+friendly.}
 }
 \value{
 An encrypted string or a raw vector.
