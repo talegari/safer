@@ -94,8 +94,6 @@ Yes (Output to disk)
 </tbody>
 </table>
 
-<details>
-<summary>Examples>
 ### Examples
 
     library("safer")
@@ -234,4 +232,4 @@ Henceforth, we shall default password for symmetric case: `pass`.
     )
 
     ## [1] TRUE
-</details>
+    
