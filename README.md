@@ -1,13 +1,14 @@
 safer
 =============
 
-> A consistent interface to encrypt/decrypt strings, objects, files and
-> connections in R. Both symmetric and asymmetric encryption methods are
-> supported. Thanks to excellent packages `sodium` and `base64enc`.
+> A consistent interface to encrypt/decrypt strings, objects, files and connections in R. 
+
+- symmetric and asymmetric encryption methods are supported.
+- Based on [libsodium](https://doc.libsodium.org/) crypto library.
 
 ### Design
 
-There are four functions and their *(inverses)*.
+There are four functions and their *inverses*.
 
 -   `encryt_string` (`decrypt_string`)
 -   `encryt_object` (`decrypt_object`)
@@ -36,7 +37,7 @@ Has side-effect
 <tbody>
 <tr class="odd">
 <td>
-encryt\_string
+`encryt_string`
 </td>
 <td>
 a string
@@ -50,7 +51,7 @@ No
 </tr>
 <tr class="even">
 <td>
-encryt\_object
+`encryt_object`
 </td>
 <td>
 a R object
@@ -64,7 +65,7 @@ No
 </tr>
 <tr class="odd">
 <td>
-encrypt\_file
+`encrypt_file`
 </td>
 <td>
 a file on disk
@@ -78,7 +79,7 @@ Yes (Output to disk)
 </tr>
 <tr class="even">
 <td>
-save\_object
+`save_object`
 </td>
 <td>
 a R object
@@ -92,6 +93,7 @@ Yes (Output to disk)
 </tr>
 </tbody>
 </table>
+
 ### Examples
 
     library("safer")
