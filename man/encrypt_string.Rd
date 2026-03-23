@@ -4,8 +4,7 @@
 \alias{encrypt_string}
 \title{Encrypt a string}
 \usage{
-encrypt_string(string, key = "pass", pkey = NULL, ascii = TRUE,
-  url = FALSE)
+encrypt_string(string, key = "pass", pkey = NULL, ascii = TRUE, url = FALSE)
 }
 \arguments{
 \item{string}{A string(character vector of length 1) without embedded NULL to
