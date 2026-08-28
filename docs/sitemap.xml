@@ -1,0 +1,19 @@
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://github.com/talegari/safer/404.html</loc></url>
+<url><loc>https://github.com/talegari/safer/authors.html</loc></url>
+<url><loc>https://github.com/talegari/safer/index.html</loc></url>
+<url><loc>https://github.com/talegari/safer/news/index.html</loc></url>
+<url><loc>https://github.com/talegari/safer/reference/decrypt_file.html</loc></url>
+<url><loc>https://github.com/talegari/safer/reference/decrypt_object.html</loc></url>
+<url><loc>https://github.com/talegari/safer/reference/decrypt_string.html</loc></url>
+<url><loc>https://github.com/talegari/safer/reference/encrypt_file.html</loc></url>
+<url><loc>https://github.com/talegari/safer/reference/encrypt_object.html</loc></url>
+<url><loc>https://github.com/talegari/safer/reference/encrypt_string.html</loc></url>
+<url><loc>https://github.com/talegari/safer/reference/index.html</loc></url>
+<url><loc>https://github.com/talegari/safer/reference/keypair.html</loc></url>
+<url><loc>https://github.com/talegari/safer/reference/read_keypair.html</loc></url>
+<url><loc>https://github.com/talegari/safer/reference/retrieve_object.html</loc></url>
+<url><loc>https://github.com/talegari/safer/reference/safer-package.html</loc></url>
+<url><loc>https://github.com/talegari/safer/reference/save_object.html</loc></url>
+</urlset>
+
