@@ -1,14 +1,19 @@
 Package: safer
 Type: Package
 Title: Encrypt and Decrypt Strings, R Objects and Files
-Version: 0.2.2
+Version: 0.2.3
 Authors@R: person("Komala Sheshachala", "Srikanth", email = "sri.teach@gmail.com", role = c("aut", "cre"))
 Description: A consistent interface to encrypt and decrypt strings, R objects and files using symmetric and asymmetric key encryption.
 Imports:
     sodium (>= 0.4),
     base64enc (>= 0.1.3),
     base64url (>= 1.4),
-    assertthat (>= 0.1),
+    assertthat (>= 0.1)
+Suggests:
+    openssl (>= 1.2.0),
+    testthat,
+    knitr,
+    rmarkdown
 Depends:
     R (>= 3.3.0),
 License: GPL-3

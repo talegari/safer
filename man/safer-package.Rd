@@ -37,6 +37,6 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: KS Srikanth \email{sri.teach@gmail.com}
+\strong{Maintainer}: Komala Sheshachala Srikanth \email{sri.teach@gmail.com}
 
 }

@@ -1,3 +1,8 @@
+# safer 0.2.3
+
+- Add `read_keypair` to support reading Ed25519 keys from files.
+- `openssl` added to Suggests.
+
 # safer 0.2.2
 
 - fix `NEWS.md` for CRAN
